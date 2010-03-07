@@ -881,6 +881,16 @@ void telephony_voice_dial_req(void *telephony_device, gboolean enable)
 	telephony_voice_dial_rsp(telephony_device, CME_ERROR_NOT_SUPPORTED);
 }
 
+void telephony_phonebook_read_req(void *telephony_device, const char *readindex, int ATtype)
+{
+        telephony_phonebook_read_rsp(telephony_device, CME_ERROR_NOT_SUPPORTED);
+}
+
+void telephony_phonebook_storage_req(void *telephony_device, const char *readindex, int ATtype)
+{
+        telephony_phonebook_storage_rsp(telephony_device, CME_ERROR_NOT_SUPPORTED);
+}
+
 static void handle_incoming_call(DBusMessage *msg)
 {
 	const char *number, *call_path;

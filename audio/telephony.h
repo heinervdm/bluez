@@ -134,6 +134,12 @@ typedef enum {
 	CME_ERROR_NETWORK_NOT_ALLOWED	= 32,
 } cme_error_t;
 
+/* AT command types */
+#define AT_NONE  0
+#define AT_TEST 1
+#define AT_READ 2
+#define AT_SET   3
+
 struct indicator {
 	const char *desc;
 	const char *range;
@@ -164,6 +170,8 @@ void telephony_call_hold_req(void *telephony_device, const char *cmd);
 void telephony_nr_and_ec_req(void *telephony_device, gboolean enable);
 void telephony_voice_dial_req(void *telephony_device, gboolean enable);
 void telephony_key_press_req(void *telephony_device, const char *keys);
+void telephony_phonebook_storage_req(void *telephony_device, const char *storage, int AT_type);
+void telephony_phonebook_read_req(void *telephony_device, const char *readindex, int AT_type);
 
 /* AG responses to HF requests. These are implemented by headset.c */
 int telephony_event_reporting_rsp(void *telephony_device, cme_error_t err);
@@ -180,6 +188,8 @@ int telephony_call_hold_rsp(void *telephony_device, cme_error_t err);
 int telephony_nr_and_ec_rsp(void *telephony_device, cme_error_t err);
 int telephony_voice_dial_rsp(void *telephony_device, cme_error_t err);
 int telephony_key_press_rsp(void *telephony_device, cme_error_t err);
+int telephony_phonebook_storage_rsp(void *telephony_device, cme_error_t err);
+int telephony_phonebook_read_rsp(void *telephony_device, cme_error_t err);
 
 /* Event indications by AG. These are implemented by headset.c */
 int telephony_event_ind(int index);
@@ -196,6 +206,8 @@ int telephony_subscriber_number_ind(const char *number, int type,
 					int service);
 int telephony_call_waiting_ind(const char *number, int type);
 int telephony_operator_selection_ind(int mode, const char *oper);
+int telephony_phonebook_storage_ind(void *device, const char *storagelist);
+int telephony_phonebook_read_ind(void *device, const char *entrylist);
 
 /* Helper function for quick indicator updates */
 static inline int telephony_update_indicator(struct indicator *indicators,

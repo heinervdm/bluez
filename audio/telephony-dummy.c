@@ -212,6 +212,17 @@ void telephony_key_press_req(void *telephony_device, const char *keys)
 	telephony_key_press_rsp(telephony_device, CME_ERROR_NONE);
 }
 
+void telephony_phonebook_read_req(void *telephony_device, const char *readindex, int ATtype)
+{
+	telephony_phonebook_read_rsp(telephony_device, CME_ERROR_NOT_SUPPORTED);
+}
+
+void telephony_phonebook_storage_req(void *telephony_device, const char *readindex, int ATtype)
+{
+	telephony_phonebook_storage_rsp(telephony_device, CME_ERROR_NOT_SUPPORTED);
+}
+
+
 /* D-Bus method handlers */
 static DBusMessage *outgoing_call(DBusConnection *conn, DBusMessage *msg,
 					void *data)
